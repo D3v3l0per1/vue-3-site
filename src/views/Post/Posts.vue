@@ -1,6 +1,16 @@
 <template>
-    <div style="overflow-y: scroll; height: 100vh;">
-      <v-container>
+  <div style="overflow-y: scroll; height: 100vh;">
+    <v-container>
+      <v-layout row wrap>
+        <v-flex xs6>
+          <h1 class="primary--text">All Posts</h1>
+        </v-flex>
+        <v-flex xs6 text-xs-right v-if="userIsAuthenticated">
+          <v-btn class="primary" to="/posts/new">Create Post</v-btn>
+        </v-flex>
+        <v-flex xs12>
+          <hr class="primary mt-2 mb-3">
+        </v-flex>
         <v-layout row wrap>
           <v-flex xs12 text-xs-center style="margin: 25rem 0;" v-if="loading">
             <v-progress-circular indeterminate :size="60" color="primary"></v-progress-circular>
@@ -19,16 +29,11 @@
                 <v-btn class="primary" :to="'/posts/' + post.id">Read More</v-btn>
               </v-card-actions>
             </v-card>
-
-            <v-divider class="mt-5"></v-divider>
-
-            <v-container text-xs-center>
-              <v-btn large class="primary" to="/posts">View all Posts</v-btn>
-            </v-container>
           </v-flex>
         </v-layout>
-      </v-container>
-    </div>
+      </v-layout>
+    </v-container>
+  </div>
 </template>
 
 <script>
@@ -43,11 +48,9 @@ export default {
     },
     loading () {
       return this.$store.getters.loading
-    }
-  },
-  methods: {
-    onLoadPost (id) {
-      this.$router.push('/posts/' + id)
+    },
+    userIsAuthenticated () {
+      return this.$store.getters.user !== null && this.$store.getters.user !== undefined
     }
   }
 }
