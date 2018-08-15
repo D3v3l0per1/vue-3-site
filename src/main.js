@@ -8,11 +8,13 @@ import { store } from './store/index'
 import StaticLeftNavMenu from './components/Shared/StaticLeftNavMenu'
 import dateFilter from './filters/date'
 import AlertCmp from './components/Shared/Alert'
+import EditPostDialog from './views/Post/Edit/EditPostDetailsDialog'
 
 Vue.config.productionTip = false
 
 Vue.component('StaticLeftNavMenu', StaticLeftNavMenu)
 Vue.component('app-alert', AlertCmp)
+Vue.component('app-edit-post-details-dialog', EditPostDialog)
 
 Vue.filter('date', dateFilter)
 

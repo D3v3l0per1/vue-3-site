@@ -8,9 +8,11 @@
         <v-flex xs12 v-else>
           <v-card class="mb-3">
             <v-card-title primary-title>
-              <div>
-                <div class="headline">{{post.title}}</div>
-              </div>
+              <div class="headline">{{post.title}}</div>
+              <template v-if="userIsCreator">
+                <v-spacer></v-spacer>
+                <app-edit-post-details-dialog :post="post"></app-edit-post-details-dialog>
+              </template>
             </v-card-title>
             <v-card-media :src="post.imageUrl" height="300px"></v-card-media>
             <v-card-text>
@@ -41,6 +43,15 @@ export default {
     loading () {
       return this.$store.getters.loading
     },
+    userIsAuthenticated () {
+      return this.$store.getters.user !== null && this.$store.getters.user !== undefined
+    },
+    userIsCreator () {
+      if (!this.userIsAuthenticated) {
+        return false
+      }
+      return this.$store.getters.user.id === this.post.creatorId
+    }
   }
 }
 </script>

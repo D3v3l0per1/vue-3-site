@@ -43,6 +43,17 @@ export const store = new Vuex.Store({
     createPost (state, payload) {
       state.loadedPosts.push(payload)
     },
+    updatePost (state, payload) {
+      const post = state.loadedPosts.find(post => {
+        return post.id === payload.id
+      })
+      if (payload.title) {
+        post.title = payload.title
+      }
+      if (payload.description) {
+        post.description = payload.description
+      }
+    },
     setUser (state, payload) {
       state.user = payload
     },
@@ -130,6 +141,29 @@ export const store = new Vuex.Store({
         .catch(
           error => {
             console.log(error)
+          }
+        )
+    },
+    updatePostData ({commit}, payload) {
+      commit('setLoading', true)
+      const updateObj = {}
+      if (payload.title) {
+        updateObj.title = payload.title
+      }
+      if (payload.description) {
+        updateObj.description = payload.description
+      }
+      firebase.database().ref('/posts/').child(payload.id).update(updateObj)
+        .then(
+          () => {
+            commit('setLoading', false)
+            commit('updatePost', payload)
+          }
+        )
+        .catch(
+          error => {
+            console.log(error)
+            commit('setLoading', false)
           }
         )
     },
