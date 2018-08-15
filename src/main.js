@@ -9,12 +9,14 @@ import StaticLeftNavMenu from './components/Shared/StaticLeftNavMenu'
 import dateFilter from './filters/date'
 import AlertCmp from './components/Shared/Alert'
 import EditPostDialog from './views/Post/Edit/EditPostDetailsDialog'
+import LikePostDialog from './views/Post/Likes/LikeDialog'
 
 Vue.config.productionTip = false
 
 Vue.component('StaticLeftNavMenu', StaticLeftNavMenu)
 Vue.component('app-alert', AlertCmp)
 Vue.component('app-edit-post-details-dialog', EditPostDialog)
+Vue.component('app-like-post-details-dialog', LikePostDialog)
 
 Vue.filter('date', dateFilter)
 
@@ -34,6 +36,7 @@ new Vue({
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
         this.$store.dispatch('autoSignIn', user)
+        this.$store.dispatch('fetchUserData')
       }
     })
     this.$store.dispatch('loadPosts')

@@ -11,6 +11,9 @@
         <v-flex xs12>
           <hr class="primary mt-2 mb-3">
         </v-flex>
+        <v-flex xs12>
+          <v-text-field append-icon="search" class="mt-3" flat label="Search..." solo-inverted></v-text-field>
+        </v-flex>
         <v-layout row wrap>
           <v-flex xs12 text-xs-center style="margin: 25rem 0;" v-if="loading">
             <v-progress-circular indeterminate :size="60" color="primary"></v-progress-circular>

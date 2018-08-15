@@ -24,7 +24,8 @@
             </v-card-text>
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn class="primary--text" icon><v-icon>favorite</v-icon></v-btn>
+              <app-like-post-details-dialog :postId="post.id" v-if="userIsAuthenticated && !userIsCreator"></app-like-post-details-dialog>
+              <!-- <v-btn class="primary--text" icon><v-icon>favorite</v-icon></v-btn> -->
             </v-card-actions>
           </v-card>
         </v-flex>
